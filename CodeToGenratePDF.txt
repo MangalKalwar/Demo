@@ -1,0 +1,21 @@
+public void CreatePDF(string fileName)
+        {
+            // Variables
+            Warning[] warnings;
+            string[] streamIds;
+            string mimeType = string.Empty;
+            string encoding = string.Empty;
+            string extension = string.Empty;
+            
+            // Setup the report viewer object and get the array of bytes
+          
+            ReportPrintInv.LocalReport.ReportPath = @"Report/Print_InvoicePrint.rdlc";
+          
+            byte[] bytes = ReportPrintInv.LocalReport.Render("PDF", null, out mimeType, out encoding, out extension, out streamIds, out warnings);
+            FileStream fs = new FileStream(@"E:\GSTR9_Report.pdf", FileMode.Create);
+           // FileStream fs1 = new FileStream(@"E:\GSTR9_Report.pdf", FileMode.Open);
+
+            fs.Write(bytes, 0, bytes.Length);
+
+            fs.Close();
+        }
